@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DependentLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="match_parent"
+    ohos:width="match_parent"
+    ohos:background_element="#FFF8F9F9"
+    ohos:remote="true">
+
+    <DirectionalLayout
+        ohos:id="$+id:card_hot"
+        ohos:height="44vp"
+        ohos:bottom_padding="4vp"
+        ohos:background_element="$media:top_bar_bg"
+        ohos:width="match_parent"
+        ohos:alignment="vertical_center"
+        ohos:total_weight="1"
+        ohos:orientation="horizontal">
+
+        <Image
+            ohos:height="16vp"
+            ohos:width="28vp"
+            ohos:bottom_margin="12vp"
+            ohos:image_src="$media:logo"
+            ohos:scale_mode="zoom_center"
+            ohos:start_margin="16vp"
+            ohos:top_margin="12vp"/>
+
+        <Text
+            ohos:height="match_content"
+            ohos:width="0vp"
+            ohos:weight="1"
+            ohos:bottom_margin="12vp"
+            ohos:end_margin="12vp"
+            ohos:start_margin="8vp"
+            ohos:text_alignment="start"
+            ohos:text="$string:hot_24_hours"
+            ohos:text_color="#FF000000"
+            ohos:text_size="12fp"
+            ohos:text_weight="600"
+            ohos:top_margin="12vp"/>
+
+        <Image
+            ohos:height="12vp"
+            ohos:width="12vp"
+            ohos:end_margin="16vp"
+            ohos:image_src="$media:icon_arrow_right"
+            ohos:scale_mode="zoom_center"/>
+
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:align_parent_top="true"
+        ohos:end_margin="12vp"
+        ohos:orientation="vertical"
+        ohos:start_margin="16vp"
+        ohos:top_margin="44vp">
+
+        <DirectionalLayout
+            ohos:id="$+id:card1"
+            ohos:height="match_content"
+            ohos:width="match_parent"
+            ohos:orientation="horizontal"
+            ohos:top_margin="8vp">
+
+            <Image
+                ohos:height="12vp"
+                ohos:width="2vp"
+                ohos:end_margin="12vp"
+                ohos:image_src="$media:icon_vertical_blue"
+                ohos:scale_mode="zoom_center"
+                ohos:top_margin="4vp"/>
+
+            <DirectionalLayout
+                ohos:height="match_content"
+                ohos:width="match_parent"
+                ohos:layout_alignment="vertical_center"
+                ohos:orientation="vertical">
+
+                <Text
+                    ohos:id="$+id:card1_title"
+                    ohos:height="match_content"
+                    ohos:width="match_parent"
+                    ohos:line_height_num="1.1"
+                    ohos:min_height="32vp"
+                    ohos:max_text_lines="2"
+                    ohos:multiple_lines="true"
+                    ohos:text="李克强：中方新冠疫苗投用后将优先向湄公河国家提供二十八字"
+                    ohos:text_color="#ff000000"
+                    ohos:text_size="14fp"
+                    ohos:text_weight="500"
+                    ohos:truncation_mode="ellipsis_at_end"/>
+
+                <DirectionalLayout
+                    ohos:height="match_content"
+                    ohos:width="match_parent"
+                    ohos:orientation="horizontal"
+                    ohos:top_margin="8vp">
+
+                    <Text
+                        ohos:id="$+id:card1_time"
+                        ohos:height="match_content"
+                        ohos:width="match_content"
+                        ohos:end_margin="8vp"
+                        ohos:text="2小时前"
+                        ohos:text_color="#ff999999"
+                        ohos:text_size="10fp"
+                        ohos:text_weight="400"
+                        ohos:truncation_mode="ellipsis_at_end"/>
+
+                    <Text
+                        ohos:id="$+id:card1_comments"
+                        ohos:height="match_content"
+                        ohos:width="match_content"
+                        ohos:text="18评"
+                        ohos:text_color="#ff999999"
+                        ohos:text_size="10fp"
+                        ohos:text_weight="400"
+                        ohos:truncation_mode="ellipsis_at_end"/>
+
+                </DirectionalLayout>
+            </DirectionalLayout>
+        </DirectionalLayout>
+
+        <Image
+            ohos:height="1vp"
+            ohos:width="match_parent"
+            ohos:image_src="$graphic:form_list_pattern_widget4_default_divide_line"
+            ohos:scale_mode="zoom_center"
+            ohos:start_margin="14vp"
+            ohos:top_margin="8vp"/>
+
+        <DirectionalLayout
+            ohos:id="$+id:card2"
+            ohos:height="match_content"
+            ohos:width="match_parent"
+            ohos:orientation="horizontal"
+            ohos:top_margin="8vp">
+
+            <Image
+                ohos:height="12vp"
+                ohos:width="2vp"
+                ohos:end_margin="12vp"
+                ohos:image_src="$media:icon_vertical_blue"
+                ohos:scale_mode="zoom_center"
+                ohos:top_margin="4vp"/>
+
+            <DirectionalLayout
+                ohos:height="match_content"
+                ohos:width="match_parent"
+                ohos:layout_alignment="vertical_center"
+                ohos:orientation="vertical">
+
+                <Text
+                    ohos:id="$+id:card2_title"
+                    ohos:height="match_content"
+                    ohos:width="match_parent"
+                    ohos:min_height="32vp"
+                    ohos:line_height_num="1.1"
+                    ohos:max_text_lines="2"
+                    ohos:multiple_lines="true"
+                    ohos:text="李克强：中方新冠疫苗投用后将优先向湄公河国家提供二十八字"
+                    ohos:text_color="#ff000000"
+                    ohos:text_size="14fp"
+                    ohos:text_weight="500"
+                    ohos:truncation_mode="ellipsis_at_end"/>
+
+                <DirectionalLayout
+                    ohos:height="match_content"
+                    ohos:width="match_parent"
+                    ohos:orientation="horizontal"
+                    ohos:top_margin="8vp">
+
+                    <Text
+                        ohos:id="$+id:card2_time"
+                        ohos:height="match_content"
+                        ohos:width="match_content"
+                        ohos:end_margin="8vp"
+                        ohos:text="2小时前"
+                        ohos:text_color="#ff999999"
+                        ohos:text_size="10fp"
+                        ohos:text_weight="400"
+                        ohos:truncation_mode="ellipsis_at_end"/>
+
+                    <Text
+                        ohos:id="$+id:card2_comments"
+                        ohos:height="match_content"
+                        ohos:width="match_content"
+                        ohos:text="18评"
+                        ohos:text_color="#ff999999"
+                        ohos:text_size="10fp"
+                        ohos:text_weight="400"
+                        ohos:truncation_mode="ellipsis_at_end"/>
+
+                </DirectionalLayout>
+            </DirectionalLayout>
+        </DirectionalLayout>
+
+        <Image
+            ohos:height="1vp"
+            ohos:width="match_parent"
+            ohos:image_src="$graphic:form_list_pattern_widget4_default_divide_line"
+            ohos:scale_mode="zoom_center"
+            ohos:start_margin="14vp"
+            ohos:top_margin="8vp"/>
+
+        <DirectionalLayout
+            ohos:id="$+id:card3"
+            ohos:height="match_content"
+            ohos:width="match_parent"
+            ohos:orientation="horizontal"
+            ohos:top_margin="8vp">
+
+            <Image
+                ohos:height="12vp"
+                ohos:width="2vp"
+                ohos:end_margin="12vp"
+                ohos:image_src="$media:icon_vertical_blue"
+                ohos:scale_mode="zoom_center"
+                ohos:top_margin="4vp"/>
+
+            <DirectionalLayout
+                ohos:height="match_content"
+                ohos:width="match_parent"
+                ohos:layout_alignment="vertical_center"
+                ohos:orientation="vertical">
+
+                <Text
+                    ohos:id="$+id:card3_title"
+                    ohos:height="match_content"
+                    ohos:width="match_parent"
+                    ohos:min_height="32vp"
+                    ohos:line_height_num="1.1"
+                    ohos:max_text_lines="2"
+                    ohos:multiple_lines="true"
+                    ohos:text="李克强：中方新冠疫苗投用后将优先向湄公河国家提供二十八字"
+                    ohos:text_color="#ff000000"
+                    ohos:text_size="14fp"
+                    ohos:text_weight="500"
+                    ohos:truncation_mode="ellipsis_at_end"/>
+
+                <DirectionalLayout
+                    ohos:height="match_content"
+                    ohos:width="match_parent"
+                    ohos:orientation="horizontal"
+                    ohos:top_margin="8vp">
+
+                    <Text
+                        ohos:id="$+id:card3_time"
+                        ohos:height="match_content"
+                        ohos:width="match_content"
+                        ohos:end_margin="8vp"
+                        ohos:text="2小时前"
+                        ohos:text_color="#ff999999"
+                        ohos:text_size="10fp"
+                        ohos:text_weight="400"
+                        ohos:truncation_mode="ellipsis_at_end"/>
+
+                    <Text
+                        ohos:id="$+id:card3_comments"
+                        ohos:height="match_content"
+                        ohos:width="match_content"
+                        ohos:text="18评"
+                        ohos:text_color="#ff999999"
+                        ohos:text_size="10fp"
+                        ohos:text_weight="400"
+                        ohos:truncation_mode="ellipsis_at_end"/>
+
+                </DirectionalLayout>
+            </DirectionalLayout>
+        </DirectionalLayout>
+
+        <Image
+            ohos:height="1vp"
+            ohos:width="match_parent"
+            ohos:image_src="$graphic:form_list_pattern_widget4_default_divide_line"
+            ohos:scale_mode="zoom_center"
+            ohos:start_margin="14vp"
+            ohos:top_margin="8vp"/>
+
+        <DirectionalLayout
+            ohos:id="$+id:card4"
+            ohos:height="match_content"
+            ohos:width="match_parent"
+            ohos:orientation="horizontal"
+            ohos:top_margin="8vp">
+
+            <Image
+                ohos:height="12vp"
+                ohos:width="2vp"
+                ohos:end_margin="12vp"
+                ohos:image_src="$media:icon_vertical_blue"
+                ohos:scale_mode="zoom_center"
+                ohos:top_margin="4vp"/>
+
+            <DirectionalLayout
+                ohos:height="match_content"
+                ohos:width="match_parent"
+                ohos:layout_alignment="vertical_center"
+                ohos:orientation="vertical">
+
+                <Text
+                    ohos:id="$+id:card4_title"
+                    ohos:height="match_content"
+                    ohos:width="match_parent"
+                    ohos:min_height="32vp"
+                    ohos:line_height_num="1.1"
+                    ohos:max_text_lines="2"
+                    ohos:multiple_lines="true"
+                    ohos:text="李克强：中方新冠疫苗投用后将优先向湄公河国家提供二十八字"
+                    ohos:text_color="#ff000000"
+                    ohos:text_size="14fp"
+                    ohos:text_weight="500"
+                    ohos:truncation_mode="ellipsis_at_end"/>
+
+                <DirectionalLayout
+                    ohos:height="match_content"
+                    ohos:width="match_parent"
+                    ohos:orientation="horizontal"
+                    ohos:top_margin="8vp">
+
+                    <Text
+                        ohos:id="$+id:card4_time"
+                        ohos:height="match_content"
+                        ohos:width="match_content"
+                        ohos:end_margin="8vp"
+                        ohos:text="2小时前"
+                        ohos:text_color="#ff999999"
+                        ohos:text_size="10fp"
+                        ohos:text_weight="400"
+                        ohos:truncation_mode="ellipsis_at_end"/>
+
+                    <Text
+                        ohos:id="$+id:card4_comments"
+                        ohos:height="match_content"
+                        ohos:width="match_content"
+                        ohos:text="18评"
+                        ohos:text_color="#ff999999"
+                        ohos:text_size="10fp"
+                        ohos:text_weight="400"
+                        ohos:truncation_mode="ellipsis_at_end"/>
+
+                </DirectionalLayout>
+            </DirectionalLayout>
+        </DirectionalLayout>
+
+    </DirectionalLayout>
+</DependentLayout>

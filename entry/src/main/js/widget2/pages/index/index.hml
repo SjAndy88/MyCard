@@ -1,0 +1,65 @@
+<div class="grid_pattern_layout">
+    <div if="{{ mini }}" class="mini_container">
+        <image src="/common/image_1.png" class="mini_image"></image>
+        <text class="mini_text">{{ miniTitle }}</text>
+    </div>
+    <div class="normal_container" onclick="sendMessageEvent">
+        <div class="title_container">
+            <div class="pic_title_container">
+                <image src="/common/image_1.png" class="title_img" on:click="startSecondAbility"></image>
+                <div style="flex-direction : column;">
+                    <text class="title">{{ title }}</text>
+                    <text class="content">{{ content }}</text>
+                </div>
+            </div>
+            <div if="{{ dim2X4 }}" class="preview_container">
+                <div class="preview_sub_container" style="align-items : flex-start;">
+                    <image src="/common/image_2.png" class="preview_img"></image>
+                    <image src="/common/image_2.png" class="preview_img"></image>
+                </div>
+                <div class="preview_sub_container" style="align-items : flex-end;">
+                    <image src="/common/image_2.png" class="preview_img"></image>
+                    <image src="/common/image_2.png" class="preview_img"></image>
+                </div>
+            </div>
+        </div>
+        <div class="detail_container">
+            <div class="sub_detail_container">
+                <div class="detail_unit">
+                    <image src="/common/image_2.png" class="detail_image"></image>
+                    <text class="detail_title">{{ detailTitle }}</text>
+                </div>
+                <div class="detail_unit">
+                    <image src="/common/image_2.png" class="detail_image"></image>
+                    <text class="detail_title">{{ detailTitle }}</text>
+                </div>
+                <div class="detail_unit">
+                    <image src="/common/image_2.png" class="detail_image"></image>
+                    <text class="detail_title">{{ detailTitle }}</text>
+                </div>
+                <div class="detail_unit">
+                    <image src="/common/image_2.png" class="detail_image"></image>
+                    <text class="detail_title">{{ detailTitle }}</text>
+                </div>
+            </div>
+            <div class="sub_detail_container">
+                <div class="detail_unit">
+                    <image src="/common/image_2.png" class="detail_image"></image>
+                    <text class="detail_title">{{ detailTitle }}</text>
+                </div>
+                <div class="detail_unit">
+                    <image src="/common/image_2.png" class="detail_image"></image>
+                    <text class="detail_title">{{ detailTitle }}</text>
+                </div>
+                <div class="detail_unit">
+                    <image src="/common/image_2.png" class="detail_image"></image>
+                    <text class="detail_title">{{ detailTitle }}</text>
+                </div>
+                <div class="detail_unit">
+                    <image src="/common/image_2.png" class="detail_image"></image>
+                    <text class="detail_title">{{ detailTitle }}</text>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

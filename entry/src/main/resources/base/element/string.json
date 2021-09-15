@@ -1,0 +1,80 @@
+{
+  "string": [
+    {
+      "name": "entry_MainAbility",
+      "value": "entry_MainAbility"
+    },
+    {
+      "name": "mainability_description",
+      "value": "JS_Empty Ability"
+    },
+    {
+      "name": "secondability_description",
+      "value": "JS_Empty Ability"
+    },
+    {
+      "name": "entry_SecondAbility",
+      "value": "entry_SecondAbility"
+    },
+    {
+      "name": "widget3_title",
+      "value": "Title"
+    },
+    {
+      "name": "widget3_introduction",
+      "value": "Introduction"
+    },
+    {
+      "name": "widget4_title",
+      "value": "Title"
+    },
+    {
+      "name": "widget4_introduction",
+      "value": "Introduction"
+    },
+    {
+      "name": "widget4_app_name",
+      "value": "App Name"
+    },
+    {
+      "name": "widget4_action_1",
+      "value": "Action 1"
+    },
+    {
+      "name": "widget4_action_2",
+      "value": "Action 2"
+    },
+    {
+      "name": "hot_24_hours",
+      "value": "24小时最热"
+    },
+    {
+      "name": "comments_num_suffix",
+      "value": "评"
+    },
+    {
+      "name": "widget5_title",
+      "value": "Title"
+    },
+    {
+      "name": "widget5_introduction",
+      "value": "Introduction"
+    },
+    {
+      "name": "widget5_app_name",
+      "value": "App Name"
+    },
+    {
+      "name": "widget5_action_1",
+      "value": "Action 1"
+    },
+    {
+      "name": "widget5_action_2",
+      "value": "Action 2"
+    },
+    {
+      "name": "yao_wen_jing_xuan",
+      "value": "要闻精选"
+    }
+  ]
+}

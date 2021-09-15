@@ -1,0 +1,28 @@
+{
+  "data": {
+    "mini": false,
+    "dim2X4": false,
+    "miniTitle": "Title",
+    "title": "Title",
+    "content": "Introduction",
+    "detailTitle": "Title"
+  },
+  "actions": {
+    "startSecondAbility": {
+      "action": "router",
+      "abilityName": "com.example.mycard.SecondAbility",
+      "params": {
+        "param1": "value1",
+        "param2": "value2"
+      }
+    },
+    "sendMessageEvent": {
+      "action": "message",
+      "params": {
+        "p1": "v1",
+        "p2": "v2"
+      }
+    }
+  }
+}
+

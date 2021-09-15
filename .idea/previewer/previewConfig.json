@@ -1,0 +1,12 @@
+{
+ "1.0.0": {
+  "LastPreviewDevice": {
+   "/Users/jun/DevEcoStudioProjects/MyCard/entry/.preview/intermediates/res/debug": [
+    "phone"
+   ],
+   "/Users/jun/DevEcoStudioProjects/MyCard/entry": [
+    "phone"
+   ]
+  }
+ }
+}
