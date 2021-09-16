@@ -6,6 +6,8 @@ import com.example.mycard.MyApplication;
 import com.example.mycard.ResourceTable;
 import com.example.mycard.data.ContListResult;
 import com.example.mycard.data.ContObject;
+import com.example.mycard.utils.EventHandlerHelper;
+import com.example.mycard.utils.NetworkUtil;
 import com.example.mycard.widget.controller.FormController;
 import com.orhanobut.hawk.Hawk;
 import com.zzrv5.mylibrary.ZZRCallBack;
@@ -61,15 +63,17 @@ public class Widget4Impl extends FormController {
     @Override
     public ProviderFormInfo bindFormData(long formId) {
         HiLog.info(TAG, "bind form data when create form");
-        ProviderFormInfo providerFormInfo = new ProviderFormInfo(RESOURCE_ID_MAP.get(dimension), context);
-
-        String urlData = Hawk.get(MyApplication.hot24hoursUrlKey);
-        if (urlData != null) {
-            ContListResult contListResult = JSON.parseObject(urlData, ContListResult.class);
-            ArrayList<ContObject> contList = contListResult.getContList();
-            bindCard(providerFormInfo, contList);
-        }
-        return providerFormInfo;
+        EventHandlerHelper.postNow(() -> {
+            HiLog.info(TAG, "Hawk.get(MyApplication.hot24hoursUrlKey)");
+            String urlData = Hawk.get(MyApplication.hot24hoursUrlKey);
+            if (urlData != null) {
+                ContListResult contListResult = JSON.parseObject(urlData, ContListResult.class);
+                ArrayList<ContObject> contList = contListResult.getContList();
+                HiLog.info(TAG, "Hawk.get(MyApplication.hot24hoursUrlKey) bindCard");
+                bindCard(contList);
+            }
+        });
+        return new ProviderFormInfo(RESOURCE_ID_MAP.get(dimension), context);
     }
 
     @Override
@@ -78,6 +82,10 @@ public class Widget4Impl extends FormController {
         HiLog.info(TAG, "dimension = " + dimension);
         if (dimension == DIMENSION_4X4 || dimension == DIMENSION_2X4) {
             HiLog.info(TAG, "ZZRHttp get hot24hoursUrl");
+            if (!NetworkUtil.isNetworkConnectedInternet(context)) {
+                HiLog.info(TAG, "isNetworkConnectedInternet false");
+                return;
+            }
             ZZRHttp.get(hot24hoursUrl, new ZZRCallBack.CallBackString() {
 
                 @Override

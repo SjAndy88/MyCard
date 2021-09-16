@@ -18,6 +18,9 @@
     "package": "com.example.mycard",
     "reqPermissions": [
       {
+        "name": "ohos.permission.GET_NETWORK_INFO"
+      },
+      {
         "name": "ohos.permission.INTERNET"
       }
     ],

@@ -9,6 +9,8 @@ import com.example.mycard.MyApplication;
 import com.example.mycard.ResourceTable;
 import com.example.mycard.data.ContListResult;
 import com.example.mycard.data.ContObject;
+import com.example.mycard.utils.EventHandlerHelper;
+import com.example.mycard.utils.NetworkUtil;
 import com.example.mycard.widget.controller.FormController;
 import com.orhanobut.hawk.Hawk;
 import com.zzrv5.mylibrary.ZZRCallBack;
@@ -68,16 +70,17 @@ public class Widget5Impl extends FormController {
     @Override
     public ProviderFormInfo bindFormData(long formId) {
         HiLog.info(TAG, "bind form data when create form");
-
-        ProviderFormInfo providerFormInfo = new ProviderFormInfo(RESOURCE_ID_MAP.get(dimension), context);
-
-        String urlData = Hawk.get(MyApplication.yaowenjingxuansUrlKey);
-        if (urlData != null) {
-            ContListResult contListResult = JSON.parseObject(urlData, ContListResult.class);
-            ArrayList<ContObject> contList = contListResult.getContList();
-            bindCard(formId, providerFormInfo, contList);
-        }
-        return providerFormInfo;
+        EventHandlerHelper.postNow(() -> {
+            HiLog.info(TAG, "Hawk.get(MyApplication.yaowenjingxuansUrlKey)");
+            String urlData = Hawk.get(MyApplication.yaowenjingxuansUrlKey);
+            if (urlData != null) {
+                ContListResult contListResult = JSON.parseObject(urlData, ContListResult.class);
+                ArrayList<ContObject> contList = contListResult.getContList();
+                HiLog.info(TAG, "Hawk.get(MyApplication.yaowenjingxuansUrlKey) bindCard");
+                bindCard(formId, contList);
+            }
+        });
+        return new ProviderFormInfo(RESOURCE_ID_MAP.get(dimension), context);
     }
 
     @Override
@@ -86,6 +89,10 @@ public class Widget5Impl extends FormController {
         HiLog.info(TAG, "dimension = " + dimension);
         if (dimension == DIMENSION_4X4 || dimension == DIMENSION_2X4) {
             HiLog.info(TAG, "ZZRHttp get yaowenjingxuansUrl");
+            if (!NetworkUtil.isNetworkConnectedInternet(context)) {
+                HiLog.info(TAG, "isNetworkConnectedInternet false");
+                return;
+            }
             ZZRHttp.get(MyApplication.yaowenjingxuansUrl, new ZZRCallBack.CallBackString() {
 
                 @Override
@@ -102,7 +109,15 @@ public class Widget5Impl extends FormController {
 
                     try {
                         ((MainAbility) context).updateForm(formId, providerFormInfo.getComponentProvider());
-                        Hawk.put(MyApplication.yaowenjingxuansUrlKey, s);
+                        ContListResult result = new ContListResult();
+                        ArrayList<ContObject> list = new ArrayList<>();
+                        for (int i = 0; i < 4; i++) {
+                            if (i < contList.size()) {
+                                list.add(contList.get(i));
+                            }
+                        }
+                        result.setContList(list);
+                        Hawk.put(MyApplication.yaowenjingxuansUrlKey, JSON.toJSONString(result));
                     } catch (FormException e) {
                         e.printStackTrace();
                         HiLog.info(TAG, "更新卡片失败");
@@ -140,7 +155,6 @@ public class Widget5Impl extends FormController {
 
         for (int i = 0; i < size; i++) {
             int cardId = cardIds[i];
-            int cardImageId = imageIds[i];
             int cardTitleId = titleIds[i];
             int cardTimeId = timeIds[i];
             int cardCommentsId = commentsIds[i];
@@ -151,24 +165,27 @@ public class Widget5Impl extends FormController {
             componentProvider.setText(cardCommentsId, contObject.getInteractionNum() + getString(ResourceTable.String_comments_num_suffix));
             componentProvider.setIntentAgent(cardId, getStartAbilityIntentAgent(contObject, i));
 
-            Glide.with(context)
-                    .load(contObject.getPic())
-                    .transform(new RoundedCorners(AttrHelper.vp2px(4, context)))
-                    .into(new ImageViewTarget<Element>(new Image(context)) {
-                        @Override
-                        protected void setResource(@Nullable Element element) {
-                            if (element instanceof PixelMapElement) {
-                                ComponentProvider componentProvider = new ComponentProvider(RESOURCE_ID_MAP.get(dimension), context);
-                                componentProvider.setImagePixelMap(cardImageId, ((PixelMapElement) element).getPixelMap());
-                                try {
-                                    ((MainAbility) context).updateForm(formId, componentProvider);
-                                } catch (FormException e) {
-                                    e.printStackTrace();
-                                    HiLog.info(TAG, "更新卡片失败");
+            if (dimension == DIMENSION_4X4) {
+                int cardImageId = imageIds[i];
+                Glide.with(context)
+                        .load(contObject.getPic())
+                        .transform(new RoundedCorners(AttrHelper.vp2px(4, context)))
+                        .into(new ImageViewTarget<Element>(new Image(context)) {
+                            @Override
+                            protected void setResource(@Nullable Element element) {
+                                if (element instanceof PixelMapElement) {
+                                    ComponentProvider componentProvider = new ComponentProvider(RESOURCE_ID_MAP.get(dimension), context);
+                                    componentProvider.setImagePixelMap(cardImageId, ((PixelMapElement) element).getPixelMap());
+                                    try {
+                                        ((MainAbility) context).updateForm(formId, componentProvider);
+                                    } catch (FormException e) {
+                                        e.printStackTrace();
+                                        HiLog.info(TAG, "更新卡片失败");
+                                    }
                                 }
                             }
-                        }
-                    });
+                        });
+            }
         }
 
         componentProvider.setIntentAgent(ResourceTable.Id_card_ywjx, getStartAbilityIntentAgent());
