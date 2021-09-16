@@ -1,5 +1,6 @@
 package com.example.mycard;
 
+import com.example.mycard.utils.EventHandlerHelper;
 import com.example.mycard.widget.controller.FormController;
 import com.example.mycard.widget.controller.FormControllerManager;
 import ohos.aafwk.ability.AbilitySlice;
@@ -50,7 +51,7 @@ public class MainAbility extends AceAbility {
             HiLog.error(TAG, "Get null controller. formId: " + formId + ", formName: " + formName);
             return null;
         }
-        onUpdateForm(formId);
+        EventHandlerHelper.postNow(() -> onUpdateForm(formId));
         return formController.bindFormData(formId);
     }
 

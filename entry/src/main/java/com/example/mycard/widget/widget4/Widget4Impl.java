@@ -182,7 +182,7 @@ public class Widget4Impl extends FormController {
         List<IntentAgentConstant.Flags> flagsList = new ArrayList<>();
         flagsList.add(IntentAgentConstant.Flags.UPDATE_PRESENT_FLAG);
         IntentAgentInfo agentInfo =
-                new IntentAgentInfo(300 + index, IntentAgentConstant.OperationType.START_ABILITY, flagsList, intentList, null);
+                new IntentAgentInfo(Integer.parseInt(contId), IntentAgentConstant.OperationType.START_ABILITY, flagsList, intentList, null);
         return IntentAgentHelper.getIntentAgent(context, agentInfo);
     }
 

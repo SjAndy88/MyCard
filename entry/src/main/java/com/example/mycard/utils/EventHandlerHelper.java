@@ -16,4 +16,11 @@ public class EventHandlerHelper {
         return sEventHandlerHelper;
     }
 
+    public static void postNow(Runnable runnable) {
+        getInstance().mEventHandler.postTask(runnable, 0);
+    }
+
+    public static void postDelay(Runnable runnable, long delayTime) {
+        getInstance().mEventHandler.postTask(runnable, delayTime);
+    }
 }

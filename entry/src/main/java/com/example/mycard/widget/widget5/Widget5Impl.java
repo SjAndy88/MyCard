@@ -71,7 +71,7 @@ public class Widget5Impl extends FormController {
 
         ProviderFormInfo providerFormInfo = new ProviderFormInfo(RESOURCE_ID_MAP.get(dimension), context);
 
-        String urlData = Hawk.get(MyApplication.hot24hoursUrlKey);
+        String urlData = Hawk.get(MyApplication.yaowenjingxuansUrlKey);
         if (urlData != null) {
             ContListResult contListResult = JSON.parseObject(urlData, ContListResult.class);
             ArrayList<ContObject> contList = contListResult.getContList();
@@ -196,7 +196,7 @@ public class Widget5Impl extends FormController {
         List<IntentAgentConstant.Flags> flagsList = new ArrayList<>();
         flagsList.add(IntentAgentConstant.Flags.UPDATE_PRESENT_FLAG);
         IntentAgentInfo agentInfo =
-                new IntentAgentInfo(400 + index, IntentAgentConstant.OperationType.START_ABILITY, flagsList, intentList, null);
+                new IntentAgentInfo(Integer.parseInt(contId), IntentAgentConstant.OperationType.START_ABILITY, flagsList, intentList, null);
         return IntentAgentHelper.getIntentAgent(context, agentInfo);
     }
 
