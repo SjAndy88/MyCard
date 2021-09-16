@@ -21,7 +21,7 @@ public class Widget2Impl extends FormController {
     }
 
     @Override
-    public ProviderFormInfo bindFormData() {
+    public ProviderFormInfo bindFormData(long formId) {
         HiLog.info(TAG, "bind form data");
         ZSONObject zsonObject = new ZSONObject();
         ProviderFormInfo providerFormInfo = new ProviderFormInfo();

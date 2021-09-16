@@ -7,7 +7,7 @@
     ohos:remote="true">
 
     <DirectionalLayout
-        ohos:id="$+id:card_hot"
+        ohos:id="$+id:card_ywjx"
         ohos:height="44vp"
         ohos:bottom_padding="4vp"
         ohos:background_element="$media:top_bar_bg"
@@ -129,7 +129,7 @@
             ohos:width="match_parent"
             ohos:image_src="$graphic:form_list_pattern_widget4_default_divide_line"
             ohos:scale_mode="zoom_center"
-            ohos:start_margin="14vp"
+            ohos:start_margin="60vp"
             ohos:top_margin="8vp"/>
 
         <DirectionalLayout
@@ -203,7 +203,7 @@
             ohos:width="match_parent"
             ohos:image_src="$graphic:form_list_pattern_widget4_default_divide_line"
             ohos:scale_mode="zoom_center"
-            ohos:start_margin="14vp"
+            ohos:start_margin="60vp"
             ohos:top_margin="8vp"/>
 
         <DirectionalLayout
@@ -277,7 +277,7 @@
             ohos:width="match_parent"
             ohos:image_src="$graphic:form_list_pattern_widget4_default_divide_line"
             ohos:scale_mode="zoom_center"
-            ohos:start_margin="14vp"
+            ohos:start_margin="60vp"
             ohos:top_margin="8vp"/>
 
         <DirectionalLayout
@@ -347,4 +347,11 @@
         </DirectionalLayout>
 
     </DirectionalLayout>
+
+    <Image
+        ohos:id="$+id:card_default"
+        ohos:height="match_parent"
+        ohos:width="match_parent"
+        ohos:image_src="$media:default_4_4_card_loading"
+        ohos:scale_mode="stretch"/>
 </DependentLayout>

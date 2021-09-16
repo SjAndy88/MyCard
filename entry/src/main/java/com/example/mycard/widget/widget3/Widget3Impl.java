@@ -40,7 +40,7 @@ public class Widget3Impl extends FormController {
     }
 
     @Override
-    public ProviderFormInfo bindFormData() {
+    public ProviderFormInfo bindFormData(long formId) {
         HiLog.info(TAG, this + " bind form data when create form");
         ProviderFormInfo providerFormInfo = new ProviderFormInfo(RESOURCE_ID_MAP.get(dimension), context);
         ComponentProvider componentProvider = new ComponentProvider();

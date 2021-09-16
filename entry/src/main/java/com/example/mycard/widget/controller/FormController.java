@@ -33,9 +33,10 @@ public abstract class FormController {
     /**
      * Bind data for a form
      *
+     * @param formId
      * @return ProviderFormInfo
      */
-    public abstract ProviderFormInfo bindFormData();
+    public abstract ProviderFormInfo bindFormData(long formId);
 
     /**
      * Update form data

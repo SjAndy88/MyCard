@@ -346,4 +346,11 @@
         </DirectionalLayout>
 
     </DirectionalLayout>
+
+    <Image
+        ohos:id="$+id:card_default"
+        ohos:height="match_parent"
+        ohos:width="match_parent"
+        ohos:image_src="$media:default_4_4_card_loading"
+        ohos:scale_mode="stretch"/>
 </DependentLayout>

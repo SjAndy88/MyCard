@@ -2,17 +2,15 @@ package com.example.mycard.widget.widget5;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.target.ImageViewTarget;
 import com.example.mycard.MainAbility;
 import com.example.mycard.MyApplication;
 import com.example.mycard.ResourceTable;
 import com.example.mycard.data.ContListResult;
 import com.example.mycard.data.ContObject;
 import com.example.mycard.widget.controller.FormController;
+import com.orhanobut.hawk.Hawk;
 import com.zzrv5.mylibrary.ZZRCallBack;
 import com.zzrv5.mylibrary.ZZRHttp;
 import ohos.aafwk.ability.AbilitySlice;
@@ -21,6 +19,7 @@ import ohos.aafwk.ability.ProviderFormInfo;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
 import ohos.agp.components.AttrHelper;
+import ohos.agp.components.Component;
 import ohos.agp.components.ComponentProvider;
 import ohos.agp.components.Image;
 import ohos.agp.components.element.Element;
@@ -43,6 +42,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Widget5Impl extends FormController {
+    public static final int DIMENSION_2X4 = 3;
     public static final int DIMENSION_4X4 = 4;
     private static final HiLogLabel TAG = new HiLogLabel(HiLog.DEBUG, 0x0, Widget5Impl.class.getName());
     private static final int DEFAULT_DIMENSION_2X2 = 2;
@@ -50,6 +50,7 @@ public class Widget5Impl extends FormController {
 
     static {
         RESOURCE_ID_MAP.put(DEFAULT_DIMENSION_2X2, ResourceTable.Layout_form_list_pattern_widget5_2_2);
+        RESOURCE_ID_MAP.put(DIMENSION_2X4, ResourceTable.Layout_form_list_pattern_widget5_2_4);
         RESOURCE_ID_MAP.put(DIMENSION_4X4, ResourceTable.Layout_form_list_pattern_widget5_4_4);
     }
 
@@ -65,16 +66,25 @@ public class Widget5Impl extends FormController {
     }
 
     @Override
-    public ProviderFormInfo bindFormData() {
+    public ProviderFormInfo bindFormData(long formId) {
         HiLog.info(TAG, "bind form data when create form");
-        return new ProviderFormInfo(RESOURCE_ID_MAP.get(dimension), context);
+
+        ProviderFormInfo providerFormInfo = new ProviderFormInfo(RESOURCE_ID_MAP.get(dimension), context);
+
+        String urlData = Hawk.get(MyApplication.hot24hoursUrlKey);
+        if (urlData != null) {
+            ContListResult contListResult = JSON.parseObject(urlData, ContListResult.class);
+            ArrayList<ContObject> contList = contListResult.getContList();
+            bindCard(formId, providerFormInfo, contList);
+        }
+        return providerFormInfo;
     }
 
     @Override
     public void updateFormData(long formId, Object... vars) {
         HiLog.info(TAG, "update form data timing, default 30 minutes");
         HiLog.info(TAG, "dimension = " + dimension);
-        if (dimension == DIMENSION_4X4) {
+        if (dimension == DIMENSION_4X4 || dimension == DIMENSION_2X4) {
             HiLog.info(TAG, "ZZRHttp get yaowenjingxuansUrl");
             ZZRHttp.get(MyApplication.yaowenjingxuansUrl, new ZZRCallBack.CallBackString() {
 
@@ -92,6 +102,7 @@ public class Widget5Impl extends FormController {
 
                     try {
                         ((MainAbility) context).updateForm(formId, providerFormInfo.getComponentProvider());
+                        Hawk.put(MyApplication.yaowenjingxuansUrlKey, s);
                     } catch (FormException e) {
                         e.printStackTrace();
                         HiLog.info(TAG, "更新卡片失败");
@@ -113,11 +124,21 @@ public class Widget5Impl extends FormController {
     }
 
     private ProviderFormInfo bindCard(long formId, ArrayList<ContObject> contObjects) {
+        return bindCard(formId, null, contObjects);
+    }
 
-        ProviderFormInfo providerFormInfo = new ProviderFormInfo(RESOURCE_ID_MAP.get(dimension), context);
+    private ProviderFormInfo bindCard(long formId, ProviderFormInfo providerFormInfo, ArrayList<ContObject> contObjects) {
+
+        if (providerFormInfo == null) {
+            providerFormInfo = new ProviderFormInfo(RESOURCE_ID_MAP.get(dimension), context);
+        }
         ComponentProvider componentProvider = new ComponentProvider(RESOURCE_ID_MAP.get(dimension), context);
 
-        for (int i = 0; i < Math.min(contObjects.size(), cardIds.length); i++) {
+        int size = dimension == DIMENSION_4X4 ? 4 : 2;
+
+        componentProvider.setVisibility(ResourceTable.Id_card_default, Component.INVISIBLE);
+
+        for (int i = 0; i < size; i++) {
             int cardId = cardIds[i];
             int cardImageId = imageIds[i];
             int cardTitleId = titleIds[i];
@@ -133,14 +154,9 @@ public class Widget5Impl extends FormController {
             Glide.with(context)
                     .load(contObject.getPic())
                     .transform(new RoundedCorners(AttrHelper.vp2px(4, context)))
-                    .addListener(new RequestListener<Element>() {
+                    .into(new ImageViewTarget<Element>(new Image(context)) {
                         @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object o, Target<Element> target, boolean b) {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(Element element, Object o, Target<Element> target, DataSource dataSource, boolean b) {
+                        protected void setResource(@Nullable Element element) {
                             if (element instanceof PixelMapElement) {
                                 ComponentProvider componentProvider = new ComponentProvider(RESOURCE_ID_MAP.get(dimension), context);
                                 componentProvider.setImagePixelMap(cardImageId, ((PixelMapElement) element).getPixelMap());
@@ -151,14 +167,11 @@ public class Widget5Impl extends FormController {
                                     HiLog.info(TAG, "更新卡片失败");
                                 }
                             }
-
-                            return false;
                         }
-                    })
-                    .into(new Image(context));
+                    });
         }
 
-        componentProvider.setIntentAgent(ResourceTable.Id_card_hot, getStartAbilityIntentAgent());
+        componentProvider.setIntentAgent(ResourceTable.Id_card_ywjx, getStartAbilityIntentAgent());
         providerFormInfo.mergeActions(componentProvider);
 
         return providerFormInfo;

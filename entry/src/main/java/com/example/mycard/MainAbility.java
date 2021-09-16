@@ -51,7 +51,7 @@ public class MainAbility extends AceAbility {
             return null;
         }
         onUpdateForm(formId);
-        return formController.bindFormData();
+        return formController.bindFormData(formId);
     }
 
     @Override

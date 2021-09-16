@@ -55,19 +55,22 @@
         "forms": [
           {
             "landscapeLayouts": [
+              "$layout:form_list_pattern_widget4_2_4",
               "$layout:form_list_pattern_widget4_4_4"
             ],
             "isDefault": true,
             "scheduledUpdateTime": "10:30",
             "defaultDimension": "4*4",
             "name": "widget4",
-            "description": "This is a service widget",
+            "description": "This is a service widget4",
             "colorMode": "auto",
             "type": "Java",
             "supportDimensions": [
+              "2*4",
               "4*4"
             ],
             "portraitLayouts": [
+              "$layout:form_list_pattern_widget4_2_4",
               "$layout:form_list_pattern_widget4_4_4"
             ],
             "updateEnabled": true,
@@ -75,6 +78,7 @@
           },
           {
             "landscapeLayouts": [
+              "$layout:form_list_pattern_widget5_2_4",
               "$layout:form_list_pattern_widget5_4_4"
             ],
             "isDefault": false,
@@ -85,9 +89,11 @@
             "colorMode": "auto",
             "type": "Java",
             "supportDimensions": [
+              "2*4",
               "4*4"
             ],
             "portraitLayouts": [
+              "$layout:form_list_pattern_widget5_2_4",
               "$layout:form_list_pattern_widget5_4_4"
             ],
             "updateEnabled": true,

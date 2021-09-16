@@ -49,6 +49,10 @@
       "value": "24小时最热"
     },
     {
+      "name": "hot_24_hours_n",
+      "value": "24H\n最热"
+    },
+    {
       "name": "comments_num_suffix",
       "value": "评"
     },
@@ -75,6 +79,22 @@
     {
       "name": "yao_wen_jing_xuan",
       "value": "要闻精选"
+    },
+    {
+      "name": "yao_wen_jing_xuan_n",
+      "value": "要闻\n精选"
+    },
+    {
+      "name": "widget6_title",
+      "value": "Title"
+    },
+    {
+      "name": "widget6_introduction",
+      "value": "Introduction"
+    },
+    {
+      "name": "widget6_app_name",
+      "value": "App Name"
     }
   ]
 }

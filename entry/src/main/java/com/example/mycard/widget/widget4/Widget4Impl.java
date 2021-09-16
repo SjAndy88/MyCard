@@ -7,6 +7,7 @@ import com.example.mycard.ResourceTable;
 import com.example.mycard.data.ContListResult;
 import com.example.mycard.data.ContObject;
 import com.example.mycard.widget.controller.FormController;
+import com.orhanobut.hawk.Hawk;
 import com.zzrv5.mylibrary.ZZRCallBack;
 import com.zzrv5.mylibrary.ZZRHttp;
 import ohos.aafwk.ability.AbilitySlice;
@@ -14,6 +15,7 @@ import ohos.aafwk.ability.FormException;
 import ohos.aafwk.ability.ProviderFormInfo;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
+import ohos.agp.components.Component;
 import ohos.agp.components.ComponentProvider;
 import ohos.app.Context;
 import ohos.event.intentagent.IntentAgent;
@@ -31,7 +33,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.mycard.MyApplication.hot24hoursUrl;
+
 public class Widget4Impl extends FormController {
+    public static final int DIMENSION_2X4 = 3;
     public static final int DIMENSION_4X4 = 4;
     private static final HiLogLabel TAG = new HiLogLabel(HiLog.DEBUG, 0x0, Widget4Impl.class.getName());
     private static final int DEFAULT_DIMENSION_2X2 = 2;
@@ -39,6 +44,7 @@ public class Widget4Impl extends FormController {
 
     static {
         RESOURCE_ID_MAP.put(DEFAULT_DIMENSION_2X2, ResourceTable.Layout_form_list_pattern_widget4_2_2);
+        RESOURCE_ID_MAP.put(DIMENSION_2X4, ResourceTable.Layout_form_list_pattern_widget4_2_4);
         RESOURCE_ID_MAP.put(DIMENSION_4X4, ResourceTable.Layout_form_list_pattern_widget4_4_4);
     }
 
@@ -53,18 +59,26 @@ public class Widget4Impl extends FormController {
     }
 
     @Override
-    public ProviderFormInfo bindFormData() {
+    public ProviderFormInfo bindFormData(long formId) {
         HiLog.info(TAG, "bind form data when create form");
-        return new ProviderFormInfo(RESOURCE_ID_MAP.get(dimension), context);
+        ProviderFormInfo providerFormInfo = new ProviderFormInfo(RESOURCE_ID_MAP.get(dimension), context);
+
+        String urlData = Hawk.get(MyApplication.hot24hoursUrlKey);
+        if (urlData != null) {
+            ContListResult contListResult = JSON.parseObject(urlData, ContListResult.class);
+            ArrayList<ContObject> contList = contListResult.getContList();
+            bindCard(providerFormInfo, contList);
+        }
+        return providerFormInfo;
     }
 
     @Override
     public void updateFormData(long formId, Object... vars) {
         HiLog.info(TAG, "update form data timing, default 30 minutes");
         HiLog.info(TAG, "dimension = " + dimension);
-        if (dimension == DIMENSION_4X4) {
+        if (dimension == DIMENSION_4X4 || dimension == DIMENSION_2X4) {
             HiLog.info(TAG, "ZZRHttp get hot24hoursUrl");
-            ZZRHttp.get(MyApplication.hot24hoursUrl, new ZZRCallBack.CallBackString() {
+            ZZRHttp.get(hot24hoursUrl, new ZZRCallBack.CallBackString() {
 
                 @Override
                 public void onFailure(int i, String s) {
@@ -73,13 +87,27 @@ public class Widget4Impl extends FormController {
 
                 @Override
                 public void onResponse(String s) {
-                    HiLog.info(TAG, "API返回成功");
                     ContListResult contListResult = JSON.parseObject(s, ContListResult.class);
+                    if (!"1".equals(contListResult.getResultCode())) {
+                        onFailure(Integer.parseInt(contListResult.getResultCode()), s);
+                        return;
+                    }
+                    HiLog.info(TAG, "API返回成功");
+
                     ArrayList<ContObject> contList = contListResult.getContList();
                     ProviderFormInfo providerFormInfo = bindCard(contList);
 
                     try {
                         ((MainAbility) context).updateForm(formId, providerFormInfo.getComponentProvider());
+                        ContListResult result = new ContListResult();
+                        ArrayList<ContObject> list = new ArrayList<>();
+                        for (int i = 0; i < 4; i++) {
+                            if (i < contList.size()) {
+                                list.add(contList.get(i));
+                            }
+                        }
+                        result.setContList(list);
+                        Hawk.put(MyApplication.hot24hoursUrlKey, JSON.toJSONString(result));
                     } catch (FormException e) {
                         e.printStackTrace();
                         HiLog.info(TAG, "更新卡片失败");
@@ -102,11 +130,21 @@ public class Widget4Impl extends FormController {
     }
 
     private ProviderFormInfo bindCard(ArrayList<ContObject> contObjects) {
+        return bindCard(null, contObjects);
+    }
 
-        ProviderFormInfo providerFormInfo = new ProviderFormInfo(RESOURCE_ID_MAP.get(dimension), context);
+    private ProviderFormInfo bindCard(ProviderFormInfo providerFormInfo, ArrayList<ContObject> contObjects) {
+
+        if (providerFormInfo == null) {
+            providerFormInfo = new ProviderFormInfo(RESOURCE_ID_MAP.get(dimension), context);
+        }
         ComponentProvider componentProvider = new ComponentProvider(RESOURCE_ID_MAP.get(dimension), context);
 
-        for (int i = 0; i < Math.min(contObjects.size(), cardIds.length); i++) {
+        int size = dimension == DIMENSION_4X4 ? 4 : 2;
+
+        componentProvider.setVisibility(ResourceTable.Id_card_default, Component.INVISIBLE);
+
+        for (int i = 0; i < size; i++) {
             int cardId = cardIds[i];
             int cardTitleId = titleIds[i];
             int cardTimeId = timeIds[i];
@@ -147,7 +185,6 @@ public class Widget4Impl extends FormController {
                 new IntentAgentInfo(300 + index, IntentAgentConstant.OperationType.START_ABILITY, flagsList, intentList, null);
         return IntentAgentHelper.getIntentAgent(context, agentInfo);
     }
-
 
     private IntentAgent getStartAbilityIntentAgent() {
         Intent intent = new Intent();
